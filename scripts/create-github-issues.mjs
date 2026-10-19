@@ -34,10 +34,23 @@ const MILESTONE_DESCRIPTIONS = {
 };
 
 const LABEL_COLORS = {
-  setup: "5319e7", ci: "5319e7", mobile: "1d76db", ecran: "0e8a16", carte: "006b75",
-  design: "d4c5f9", backend: "fbca04", données: "c2e0c6", docs: "bfdadc", legal: "e4e669",
-  qualite: "f9d0c4", release: "b60205", "non-dev": "ededed", "plus-tard": "cccccc",
-  "taille:S": "eeeeee", "taille:M": "dddddd", "taille:L": "bbbbbb",
+  setup: "5319e7",
+  ci: "5319e7",
+  mobile: "1d76db",
+  ecran: "0e8a16",
+  carte: "006b75",
+  design: "d4c5f9",
+  backend: "fbca04",
+  données: "c2e0c6",
+  docs: "bfdadc",
+  legal: "e4e669",
+  qualite: "f9d0c4",
+  release: "b60205",
+  "non-dev": "ededed",
+  "plus-tard": "cccccc",
+  "taille:S": "eeeeee",
+  "taille:M": "dddddd",
+  "taille:L": "bbbbbb",
 };
 
 function parseTickets(text) {
@@ -93,29 +106,48 @@ for (const ticket of tickets) {
 const labels = [...new Set(tickets.flatMap((t) => t.labels))];
 const milestones = [...new Set(tickets.map((t) => t.milestone))];
 
-console.log(`${tickets.length} tickets, ${labels.length} labels, ${milestones.length} milestones\n`);
+console.log(
+  `${tickets.length} tickets, ${labels.length} labels, ${milestones.length} milestones\n`,
+);
 
 if (!apply) {
   for (const t of tickets) {
     const deps = t.dependsOn.length ? ` ← ${t.dependsOn.join(", ")}` : "";
     console.log(`[${t.milestone}] ${t.id} ${t.title} (${t.labels.join(", ")})${deps}`);
   }
-  console.log("\nSimulation uniquement. Ajoute --apply --repo <owner>/<repo> pour créer les issues.");
+  console.log(
+    "\nSimulation uniquement. Ajoute --apply --repo <owner>/<repo> pour créer les issues.",
+  );
   process.exit(0);
 }
 
 for (const label of labels) {
-  gh("label", "create", label, "--repo", repo, "--color", LABEL_COLORS[label] ?? "ededed", "--force");
+  gh(
+    "label",
+    "create",
+    label,
+    "--repo",
+    repo,
+    "--color",
+    LABEL_COLORS[label] ?? "ededed",
+    "--force",
+  );
   console.log(`label ✓ ${label}`);
 }
 
-const existingMilestones = JSON.parse(gh("api", `repos/${repo}/milestones?state=all&per_page=100`)).map(
-  (m) => m.title,
-);
+const existingMilestones = JSON.parse(
+  gh("api", `repos/${repo}/milestones?state=all&per_page=100`),
+).map((m) => m.title);
 for (const title of milestones) {
   if (existingMilestones.includes(title)) continue;
-  gh("api", `repos/${repo}/milestones`, "-f", `title=${title}`, "-f",
-    `description=${MILESTONE_DESCRIPTIONS[title] ?? ""}`);
+  gh(
+    "api",
+    `repos/${repo}/milestones`,
+    "-f",
+    `title=${title}`,
+    "-f",
+    `description=${MILESTONE_DESCRIPTIONS[title] ?? ""}`,
+  );
   console.log(`milestone ✓ ${title}`);
 }
 
@@ -127,9 +159,19 @@ for (const t of tickets) {
   const bodyFile = join(tempDir, `${t.id}.md`);
   writeFileSync(bodyFile, body, "utf8");
 
-  const url = gh("issue", "create", "--repo", repo, "--title", `${t.id} · ${t.title}`,
-    "--body-file", bodyFile, "--milestone", t.milestone,
-    ...t.labels.flatMap((l) => ["--label", l]));
+  const url = gh(
+    "issue",
+    "create",
+    "--repo",
+    repo,
+    "--title",
+    `${t.id} · ${t.title}`,
+    "--body-file",
+    bodyFile,
+    "--milestone",
+    t.milestone,
+    ...t.labels.flatMap((l) => ["--label", l]),
+  );
   issueNumbers[t.id] = url.split("/").pop();
   console.log(`issue ✓ ${t.id} → ${url}`);
 }

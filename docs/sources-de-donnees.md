@@ -14,12 +14,12 @@ Geotrek est le logiciel libre utilisé par ~170 structures (départements, parcs
 
 Instance testée : `https://geotrek.auvergnerhonealpes-tourisme.com/api/v2/`
 
-| Pratique (id) | Nombre de circuits |
-|---|---|
-| Route (2) | 536 |
-| VTT (3) | 1 120 |
-| Gravel (6) | 83 |
-| VAE (10), VTTAE (13), Itinérance vélo (19) | non comptés |
+| Pratique (id)                              | Nombre de circuits |
+| ------------------------------------------ | ------------------ |
+| Route (2)                                  | 536                |
+| VTT (3)                                    | 1 120              |
+| Gravel (6)                                 | 83                 |
+| VAE (10), VTTAE (13), Itinérance vélo (19) | non comptés        |
 
 Couvre la Drôme et l'Ardèche (Agence d'Attractivité de la Drôme, ADT Ardèche…) : 99 structures productrices.
 
