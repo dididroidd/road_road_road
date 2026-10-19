@@ -9,7 +9,7 @@ App mobile (Android d'abord) pour découvrir les circuits vélo officiels autour
 ## Structure
 
 ```
-apps/mobile/        App Expo (arrive avec T03)
+apps/mobile/        App Expo (@road/mobile)
 packages/shared/    Types et utilitaires partagés (@road/shared)
 scripts/import/     Import des circuits depuis les sources (@road/import)
 supabase/           Migrations et fonctions SQL (arrive avec T04)
@@ -38,6 +38,23 @@ docs/               Documentation du projet
 | `pnpm typecheck`                    | Vérification TypeScript de chaque paquet    |
 | `pnpm format` / `pnpm format:check` | Prettier                                    |
 | `pnpm --filter @road/import start`  | Lance le script d'import                    |
+
+## Lancer l'app Android
+
+La carte (MapLibre) contient du code natif : l'app ne marche pas dans Expo Go, il faut un **development build**.
+
+- **En local** (Android Studio installé, émulateur lancé ou téléphone branché en mode développeur) :
+  ```bash
+  pnpm --filter @road/mobile android
+  ```
+- **Dans le cloud avec EAS** (pas besoin d'Android Studio) : construit un APK à installer sur le téléphone.
+  ```bash
+  cd apps/mobile && npx eas-cli@latest build --profile development --platform android
+  ```
+
+Ensuite, `pnpm --filter @road/mobile start` lance le serveur de développement auquel l'app se connecte.
+
+Profils EAS (`apps/mobile/eas.json`) : `development` (dev client, APK), `preview` (APK installable sans serveur), `production` (AAB pour le Play Store).
 
 ## Variables d'environnement
 
