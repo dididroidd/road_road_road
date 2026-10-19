@@ -51,7 +51,7 @@ Les circuits de Véloenfrance, et en particulier les **randonnées permanentes**
 2. Sous quelles conditions (licence, mentions, liens vers Véloenfrance ou vers les clubs organisateurs) ?
 3. Seriez-vous intéressés par un partenariat, par exemple un renvoi systématique vers la fiche Véloenfrance et l'inscription aux randonnées permanentes ?
 
-L'application est sans publicité ni collecte de données personnelles. Je serais ravi d'échanger avec vous à ce sujet.
+L'application est sans publicité ni collecte de données personnelles. Ce serait un plaisir d'échanger avec vous à ce sujet.
 
 Bien cordialement,
 [Prénom Nom]
