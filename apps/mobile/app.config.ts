@@ -23,7 +23,15 @@ const config: ExpoConfig = {
     },
     predictiveBackGestureEnabled: false,
   },
-  plugins: ["expo-router", "expo-status-bar", "@maplibre/maplibre-react-native"],
+  plugins: [
+    "expo-router",
+    "expo-status-bar",
+    "@maplibre/maplibre-react-native",
+    [
+      "expo-splash-screen",
+      { image: "./assets/splash-icon.png", imageWidth: 160, backgroundColor: "#F7F6F2" },
+    ],
+  ],
   experiments: {
     typedRoutes: true,
   },
