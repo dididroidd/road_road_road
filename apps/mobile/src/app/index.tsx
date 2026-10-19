@@ -1,6 +1,8 @@
 import { router } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
+import { MIN_TOUCH_TARGET, colors, radii, spacing, typography } from "@/theme";
+
 // Écran d'accueil provisoire : le vrai écran de la maquette arrive avec T15.
 export default function WelcomeScreen() {
   return (
@@ -8,7 +10,7 @@ export default function WelcomeScreen() {
       <Text style={styles.title}>Découvrez les circuits officiels.</Text>
       <Pressable
         accessibilityRole="button"
-        style={styles.button}
+        style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
         onPress={() => router.replace("/explorer")}
       >
         <Text style={styles.buttonLabel}>Commencer l'exploration</Text>
@@ -18,8 +20,22 @@ export default function WelcomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", padding: 24, gap: 24 },
-  title: { fontSize: 32, fontWeight: "700" },
-  button: { backgroundColor: "#2A6B3F", borderRadius: 16, padding: 16, alignItems: "center" },
-  buttonLabel: { color: "#FFFFFF", fontSize: 16, fontWeight: "600" },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    padding: spacing.xl,
+    gap: spacing.xl,
+    backgroundColor: colors.background,
+  },
+  title: { ...typography.hero, color: colors.text },
+  button: {
+    minHeight: MIN_TOUCH_TARGET,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: spacing.lg,
+    borderRadius: radii.lg,
+    backgroundColor: colors.primary,
+  },
+  buttonPressed: { backgroundColor: colors.primaryPressed },
+  buttonLabel: { ...typography.bodyStrong, color: colors.textOnPrimary },
 });
